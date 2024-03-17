@@ -3,6 +3,7 @@
   line-height: 1.5;
   font-weight: 400;
 
+  text-align: center;
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
@@ -23,11 +24,13 @@ a:hover {
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: normal, center;
-  min-width: 320px;
-  min-height: 100vh;
+  /*margin: 0;*/
+  /*display: flex;
+  place-items: normal, center;*/
+  /*min-width: 320px;
+  min-height: 100vh;*/
+  background:#242424;
+  color:rgba(255, 255, 255, 0.87);
 }
 
 h1 {
