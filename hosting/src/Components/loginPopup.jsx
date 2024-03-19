@@ -8,9 +8,7 @@ export default function LoginPopup(){
 
   const toggleModal = () => {
     setModal(!modal);
-    console.log("Inside toggleModal function.");
   }
-  console.log(`Registered Click. Modal Value: ${modal}`);
   return(
     <>
       <button className="open-popup-btn" onClick={toggleModal}>Log in</button>
