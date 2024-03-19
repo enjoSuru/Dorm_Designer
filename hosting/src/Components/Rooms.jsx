@@ -53,6 +53,10 @@ function Rooms(){
     alert(`${name} Clicked.`)
   }
 
+  //This component currently returns the whole Room creation/viewing page. Some small things need to be fixed, such as
+  //the select element displaying what you selected, clearing the selections when you create the room, and
+  //not executing the onClick function of the entire roomDivs div when clicking the delete button.
+  //I (Aiden) can fix these things later.
   return(
     <>
     <br></br>

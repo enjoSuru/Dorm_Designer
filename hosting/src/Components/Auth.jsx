@@ -31,6 +31,9 @@ export const Auth = () => {
     }
   }
   
+  //Returns a div with inputs for username and password, a signIn button, a signInWithGoogle button, and a logOut button.
+  //Should probably remove the logOut button and instead display a log out button on the NavBar when users are signed in.
+  //Also, we need to add a button or link to create a new account.
   return(
     <div className="d-flex flex-column p-4 align-items-center">
       <input type="text" className="auth-input form-control" placeholder="Email..." onChange = {(e)=>setEmail(e.target.value)}/>

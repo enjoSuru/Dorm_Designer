@@ -9,6 +9,8 @@ import NavBar from './Components/navbar.jsx';
 import Rooms from './Components/Rooms.jsx';
 
 const router = createBrowserRouter([
+  //Router Paths. All the paths are currently children of NavBar so the NavBar is always showing. Can be
+  //changed if needed, though.
   {
     path: "/",
     element: <NavBar />,
@@ -31,10 +33,3 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <RouterProvider router={router}/>
   </React.StrictMode>,
 )
-
-
-//ReactDOM.createRoot(document.getElementById('root')).render(
-//  <React.StrictMode>
-//    <App />
-//  </React.StrictMode>,
-//)

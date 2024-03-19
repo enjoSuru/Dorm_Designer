@@ -4,6 +4,8 @@ import LoginPopup from './loginPopup';
 
 export default function NavBar(){
 return(
+  //Basic Navbar. Will need to add an icon later, make the login button switch to logout when signed in, and also
+  //make View Rooms invisible when not signed in.
     <>
       <nav className="navbar navbar-expand-lg navbar-dark" style={{background:"rgb(23,23,21)"}}>
         <div className="container-fluid">

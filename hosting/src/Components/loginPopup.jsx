@@ -9,6 +9,9 @@ export default function LoginPopup(){
   const toggleModal = () => {
     setModal(!modal);
   }
+
+  //Modal popup window for logging in. Probably could use some different styling and I'm going to make it to where
+  //you can't scroll when the popup is open.
   return(
     <>
       <button className="open-popup-btn" onClick={toggleModal}>Log in</button>
