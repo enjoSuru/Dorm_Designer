@@ -1,4 +1,5 @@
 import {Link,Outlet} from 'react-router-dom';
+import LoginPopup from './loginPopup';
 
 
 export default function NavBar(){
@@ -9,8 +10,7 @@ return(
           <Link to="/" className="navbar-brand">Home</Link>
           <Link to="/rooms" className="nav-item me-auto" style={{paddingLeft:"1rem",paddingRight:"1rem"}}>View Rooms</Link>
           <Link to="/account" className="nav-item" style={{paddingLeft:"1rem",paddingRight:"1rem"}}>Account</Link>
-          <Link to="/login" className="nav-item" style={{paddingLeft:"1rem",paddingRight:"1rem"}}>Log In</Link>
-          <p className="nav-item" style={{paddingLeft:"1rem",paddingRight:"1rem"}}>Log Out</p>
+          <LoginPopup />
         </div>
       </nav>
       <Outlet/>

@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom/client'
 import App from './routes/App.jsx'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import ErrorPage from './error-page.jsx'
-import { Auth } from './Auth.jsx';
-import NavBar from './navbar.jsx';
-import Rooms from './Rooms.jsx';
+import ErrorPage from './routes/error-page.jsx'
+import { Auth } from './Components/Auth.jsx';
+import NavBar from './Components/navbar.jsx';
+import Rooms from './Components/Rooms.jsx';
 
 const router = createBrowserRouter([
   {
@@ -17,10 +17,6 @@ const router = createBrowserRouter([
       {
         path:"/",
         element:<App/>
-      },
-      {
-        path:"/login",
-        element:<Auth/>
       },
       {
         path:"/rooms",

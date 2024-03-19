@@ -1,13 +1,10 @@
-import { Auth } from '../Auth.jsx';
-import Rooms from '../Rooms.jsx';
-import NavBar from '../navbar.jsx';
-import '../App.css';
-
+import '../comp_styling/App.css';
 
 function App() {
 
   return (
     <>
+    <br></br>
       <div>
         <h1>Dorm Designer</h1>
       </div>

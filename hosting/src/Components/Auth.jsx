@@ -1,6 +1,7 @@
-import {auth, googleProvider} from './firebase-config.js';
+import {auth, googleProvider} from '../firebase-config.js';
 import {createUserWithEmailAndPassword, signInWithPopup, signOut} from 'firebase/auth';
 import React, { useState } from 'react';
+import '../comp_styling/Auth.css';
 
 export const Auth = () => {
   const [email, setEmail] = useState("");
@@ -31,12 +32,15 @@ export const Auth = () => {
   }
   
   return(
-    <div>
-      <input style={{height:"25px", marginBottom:"15px"}} placeholder="Email..." onChange = {(e)=>setEmail(e.target.value)}/>
-      <input style={{height:"25px", marginBottom:"15px"}} placeholder="Password..." type = "password" onChange = {(e)=>setPassword(e.target.value)}/>
+    <div className="d-flex flex-column p-4 align-items-center">
+      <input type="text" className="auth-input form-control" placeholder="Email..." onChange = {(e)=>setEmail(e.target.value)}/>
+      <input className="auth-input form-control" placeholder="Password..." type = "password" onChange = {(e)=>setPassword(e.target.value)}/>
       <br></br>
-      <button onClick = {signIn}>Sign In</button>
-      <button onClick = {signInWithGoogle}>Sign in with Google</button>
+      <div className="log-buttons">
+        <button type="button" className="btn btn-outline-success signIn" onClick = {signIn}>Sign In</button>
+        <button type="button" className="btn btn-outline-primary signInGoogle" onClick = {signInWithGoogle}>Sign in with Google</button>
+      </div>
+      <br></br>
       <button onClick = {logOut}>Log Out</button>
     </div>
   );

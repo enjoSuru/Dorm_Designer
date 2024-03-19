@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import { collection, getDocs, getDoc, addDoc, deleteDoc, doc } from 'firebase/firestore';
-import { db } from './firebase-config.js';
-import './Rooms.css';
+import { db } from '../firebase-config.js';
+import '../comp_styling/Rooms.css';
 
 function Rooms(){
   const roomCollectionRef = collection(db,"rooms");
@@ -49,13 +49,18 @@ function Rooms(){
     getRoomList();
   }
 
+  const onRoomClick = (name) =>{
+    alert(`${name} Clicked.`)
+  }
+
   return(
     <>
+    <br></br>
     <div>
       <h1 style={{fontSize:"2rem"}}>Create a Room</h1>
       <input placeholder = "Room Name..." onChange = {(e)=> setNewRoomName(e.target.value)}/>
       <select value="hall" onChange={(e)=>setNewRoomDorm(e.target.value)}>
-        <option value = "" selected disabled>Select a Residence Hall</option>
+        <option value = "" disabled selected>Select a Residence Hall</option>
         <option value="MIT">Mignon Tower</option>
         <option value="MIH">West, East, Mignon</option>
         <option value="NUH">Nunn Hall</option>
@@ -66,10 +71,10 @@ function Rooms(){
       <button onClick={onCreateRoom}>Create Room</button>
     </div>
 
-    <div className = "roomListDiv">
+    <div className = "roomListDiv d-flex flex-column p-4 align-items-center">
       <header style={{fontSize:"large",padding:"30px"}}>Current Rooms:</header>
       {roomList.map((room)=> (
-        <div className = "roomDivs">
+        <div className = "roomDivs" onClick={()=>onRoomClick(room.name)}>
           <p style={{fontSize:"medium"}}>{room.dorm} Dorm Room: '{room.name}'</p>
           <button onClick={()=>deleteRoom(room.id)}>Delete X</button>
         </div>
