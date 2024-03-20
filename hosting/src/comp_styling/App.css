@@ -4,3 +4,13 @@
   /*padding: 2rem;*/
   text-align: center;
 }
+
+.intro-div{
+  max-width:75%;
+  margin-left:12.5%;
+  text-align:left;
+}
+
+.intro-paragraph{
+  margin-bottom:15px;
+}
