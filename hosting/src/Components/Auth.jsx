@@ -90,7 +90,7 @@ export const Auth = () => {
         </button>
       </div>
       <br></br>
-
+      <button onClick={logOut}>Log Out</button>
     </div>
   );
 };
