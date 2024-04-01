@@ -7,6 +7,12 @@
   width:50rem;
   margin-bottom:10px;
 }
+
+.roomListDiv .roomDivs:hover{
+  cursor:pointer;
+  opacity:0.8;
+}
+
 p{
   margin:5px;
 }
