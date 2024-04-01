@@ -1,10 +1,12 @@
 import {useState, useEffect} from 'react';
 import { collection, getDocs, getDoc, addDoc, deleteDoc, doc } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 import { db } from '../firebase-config.js';
 import '../comp_styling/Rooms.css';
 
 function Rooms(){
   const roomCollectionRef = collection(db,"rooms");
+  const navigate = useNavigate();
 
   // State for our list of rooms when it's pulled from the database and filtered
   const [roomList, setRoomList] = useState([]);
@@ -53,8 +55,8 @@ function Rooms(){
     e.stopPropagation();
   }
 
-  const onRoomClick = (name) =>{
-    alert(`${name} Clicked.`)
+  const onRoomClick = (roomId) =>{
+    navigate(`/room/${roomId}`);
   }
 
   //This component currently returns the whole Room creation/viewing page. Some small things need to be fixed, such as
@@ -82,7 +84,7 @@ function Rooms(){
     <div className = "roomListDiv d-flex flex-column p-4 align-items-center">
       <header style={{fontSize:"large",padding:"30px"}}>Current Rooms:</header>
       {roomList.map((room)=> (
-        <div className = "roomDivs" onClick={()=>onRoomClick(room.name)}>
+        <div className = "roomDivs" onClick={()=>onRoomClick(room.id)}>
           <p style={{fontSize:"medium"}}>{room.dorm} Dorm Room: '{room.name}'</p>
           <button onClick={(e)=>{stopProp(e); deleteRoom(room.id);}}>Delete X</button>
         </div>
