@@ -12,7 +12,6 @@ function Rooms(){
   // States used for creating a new room/s
   const[newRoomName,setNewRoomName] = useState("");
   const[newRoomDorm,setNewRoomDorm] = useState("");
-
   const getRoomList = async () => {
     // READ THE DATA
     // AND SETMOVIELIST = THE DATA
@@ -49,6 +48,11 @@ function Rooms(){
     getRoomList();
   }
 
+  //stops the onRoomClick function from executing when the button to delete the room is clicked.
+  const stopProp = (e)=>{
+    e.stopPropagation();
+  }
+
   const onRoomClick = (name) =>{
     alert(`${name} Clicked.`)
   }
@@ -80,7 +84,7 @@ function Rooms(){
       {roomList.map((room)=> (
         <div className = "roomDivs" onClick={()=>onRoomClick(room.name)}>
           <p style={{fontSize:"medium"}}>{room.dorm} Dorm Room: '{room.name}'</p>
-          <button onClick={()=>deleteRoom(room.id)}>Delete X</button>
+          <button onClick={(e)=>{stopProp(e); deleteRoom(room.id);}}>Delete X</button>
         </div>
       ))}
     </div>
