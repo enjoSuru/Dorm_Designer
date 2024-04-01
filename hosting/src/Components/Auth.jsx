@@ -4,13 +4,23 @@ import {
   createUserWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../comp_styling/Auth.css";
 
 export const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+    });
+
+    return unsubscribe;
+  }, []);
 
   const signIn = async () => {
     try {
@@ -91,6 +101,9 @@ export const Auth = () => {
       </div>
       <br></br>
       <button onClick={logOut}>Log Out</button>
+      <div>
+        <p className="auth-status">Signed in as: {user?.email || "No one"} </p>
+      </div>
     </div>
   );
 };
