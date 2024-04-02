@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
-import { collection, getDocs, getDoc, addDoc, deleteDoc, doc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+import { collection, getDocs, getDoc, addDoc, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../firebase-config.js';
 import '../comp_styling/Rooms.css';
 
@@ -14,6 +14,7 @@ function Rooms(){
   // States used for creating a new room/s
   const[newRoomName,setNewRoomName] = useState("");
   const[newRoomDorm,setNewRoomDorm] = useState("");
+  
   const getRoomList = async () => {
     // READ THE DATA
     // AND SETMOVIELIST = THE DATA

@@ -50,7 +50,7 @@ function App() {
         </div>
       </div>
       <img
-        src="Morehead_State_Eagles.jpeg"
+        src='../assets/Morehead_State_Eagles.jpg'
         className="img-fluid"
         alt="Dorm Room"
       />
