@@ -1,0 +1,31 @@
+.box{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: hotpink;
+    height: 160px;
+    width: 160px;
+    cursor: pointer;
+  }
+  
+  .circle{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: blue;
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .small-circle{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: blueviolet;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
