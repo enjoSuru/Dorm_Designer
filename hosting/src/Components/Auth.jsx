@@ -100,7 +100,6 @@ export const Auth = () => {
         </button>
       </div>
       <br></br>
-      <button onClick={logOut}>Log Out</button>
       <div>
         <p className="auth-status">Signed in as: {user?.email || "No one"} </p>
       </div>
