@@ -97,9 +97,6 @@ function Rooms() {
           <option value="" disabled selected>
             Select a Residence Hall
           </option>
-          <option value="" disabled>
-            Select a Residence Hall
-          </option>
           <option value="MIT">Mignon Tower</option>
           <option value="MIH">West, East, Mignon</option>
           <option value="NUH">Nunn Hall</option>
