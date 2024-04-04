@@ -30,13 +30,11 @@ export default function NavBar() {
           <Link to="/" className="navbar-brand">
             Home
           </Link>
-          <Link
-            to="/rooms"
-            className="nav-item me-auto"
-            style={{ paddingLeft: "1rem", paddingRight: "1rem" }}
-          >
-            View Rooms
-          </Link>
+          {user ? (
+            <Link to="/rooms" className="nav-item">
+              View Rooms
+            </Link>
+          ) : null}
           <Link
             to="/account"
             className="nav-item"
