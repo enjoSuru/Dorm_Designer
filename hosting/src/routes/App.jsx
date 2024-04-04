@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <br></br>
-      <h1 className="display-5 text-success">Dorm Designer</h1>
+      <h1 className="display-5-text-success">Dorm Designer</h1>
       <div className="d-flex flex-column p-2 align-items-center intro-div">
         <div className="align-self-start">
           <p className="text-info">
@@ -50,7 +50,7 @@ function App() {
         </div>
       </div>
       <img
-        src='../assets/Morehead_State_Eagles.jpg'
+        src="../assets/Morehead_State_Eagles.jpg"
         className="img-fluid"
         alt="Dorm Room"
       />
