@@ -1,13 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  collection,
-  getDocs,
-  getDoc,
-  addDoc,
-  deleteDoc,
-  doc,
-} from "firebase/firestore";
+import {collection, getDocs, getDoc, addDoc, deleteDoc, doc,} from "firebase/firestore";
 import { db } from "../firebase-config.js";
 import "../comp_styling/Rooms.css";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -15,6 +8,12 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 function Rooms() {
   const roomCollectionRef = collection(db, "rooms");
   const navigate = useNavigate();
+  
+  //Defined an auth variable and current user variable outside the onCreateRoom function to
+  //use to only render the rooms the current user is a part of. We can put this in a try if needed.
+  const outsideAuth = getAuth();
+  const outUser = outsideAuth.currentUser;
+
 
   // State for our list of rooms when it's pulled from the database and filtered
   const [roomList, setRoomList] = useState([]);
@@ -77,10 +76,6 @@ function Rooms() {
     navigate(`/room/${roomId}`);
   };
 
-  //This component currently returns the whole Room creation/viewing page. Some small things need to be fixed, such as
-  //the select element displaying what you selected, clearing the selections when you create the room, and
-  //not executing the onClick function of the entire roomDivs div when clicking the delete button.
-  //I (Aiden) can fix these things later.
   return (
     <>
       <br></br>
@@ -111,12 +106,11 @@ function Rooms() {
         <header style={{ fontSize: "large", padding: "30px" }}>
           Current Rooms:
         </header>
-        {roomList.map((room) => (
-          <div
+        {roomList.map((room=> room.owner == outUser.uid ? <div
             className="roomDivs"
             key={room.id}
             onClick={() => onRoomClick(room.id)}
-          >
+            >
             <p style={{ fontSize: "medium" }}>
               {room.dorm} Dorm Room: '{room.name}' <br></br>Room Owner:{" "}
               {room.owner}
@@ -124,12 +118,12 @@ function Rooms() {
             <button
               onClick={(e) => {
                 stopProp(e);
-                deleteRoom(room.id);
-              }}
+                deleteRoom(room.id);} }
             >
               Delete X
             </button>
-          </div>
+          </div>:
+          null
         ))}
       </div>
     </>
