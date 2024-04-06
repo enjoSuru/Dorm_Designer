@@ -31,7 +31,6 @@ function Rooms() {
         ...doc.data(),
         id: doc.id,
       }));
-      console.log(filteredData);
       setRoomList(filteredData);
     } catch (err) {
       console.log(err);
