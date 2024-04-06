@@ -9,3 +9,8 @@
   color: yellow !important;
 }
 
+.hall-div{
+  background-color: #383838;
+  border-radius: 20px;
+  margin-top:20vh;
+}
