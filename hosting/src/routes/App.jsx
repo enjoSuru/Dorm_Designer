@@ -7,10 +7,10 @@ function App() {
   return (
     <>
       <br></br>
-      <h1 className="display-5-text-success">Dorm Designer</h1>
+      <h1 className="display-5 title">Dorm Designer</h1>
       <div className="d-flex flex-column p-2 align-items-center intro-div">
         <div className="align-self-start">
-          <p className="text-info">
+          <p className="what-are-we">
             <strong>
               <big>&nbsp;&nbsp;&nbsp;&nbsp;What are we?</big>
             </strong>
@@ -52,11 +52,11 @@ function App() {
       <div className="d-flex p-4 flex-row hall-div">
       <img
         src="https://firebasestorage.googleapis.com/v0/b/aidentestsite-af39d.appspot.com/o/andrews%20room.jpg?alt=media&token=fb6d4f80-7457-4bf8-afbf-582d128e821c"
-        className="align-self-start"
-        alt="Dorm Room" style={{height:"450px",width:"600px",borderRadius:"15px"}}
+        className="align-self-start dorm-image"
+        alt="Dorm Room"
       />
         <div className="d-flex p-4 flex-column">
-          <h2 className="align-self-start align-self-center" style={{paddingBottom:"50px"}}>Andrews Hall</h2>
+          <h2 className="align-self-start align-self-center" style={{paddingBottom:"50px",color:"#2fabad"}}>Andrews Hall</h2>
           <p className="align-self-center align-self-center">Andrews Hall offers unmatched amenities and features while offering safe, secure, and cost-effective housing for students. This four-story, air-conditioned, fully-furnished hall provides double co-joined and 4-person suites for 524 residents. With study rooms, meeting rooms, and kitchens on each floor that encourage a sense of community, residents can have many spaces to gather, study, and eat. This hall opened in 2016 as a co-ed residence hall and was named in honor of Wayne D. and Susan H. Andrews.</p>
         </div>
       </div>
