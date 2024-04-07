@@ -3,12 +3,9 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 
 export default function SliderSizes() {
-  const [smallSliderValue, setSmallSliderValue] = useState(70);
   const [defaultSliderValue, setDefaultSliderValue] = useState(50);
 
-  const handleSmallSliderChange = (event, newValue) => {
-    setSmallSliderValue(newValue);
-  };
+
 
   const handleDefaultSliderChange = (event, newValue) => {
     setDefaultSliderValue(newValue);
@@ -16,13 +13,7 @@ export default function SliderSizes() {
 
   return (
     <Box sx={{ width: 300 }}>
-      <Slider
-        size="small"
-        value={smallSliderValue}
-        onChange={handleSmallSliderChange}
-        aria-label="Small"
-        valueLabelDisplay="auto"
-      />
+    
       <Slider
         value={defaultSliderValue}
         onChange={handleDefaultSliderChange}

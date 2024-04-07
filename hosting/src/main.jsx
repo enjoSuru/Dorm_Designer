@@ -8,6 +8,7 @@ import { Auth } from './Components/Auth.jsx';
 import NavBar from './Components/navbar.jsx';
 import Rooms from './Components/Rooms.jsx';
 import SliderSizes from './sliders/sliders.jsx';
+import Mignon_Complex_Custom from './main_building_page/mignon_hall_customizer.jsx'
 
 const router = createBrowserRouter([
   //Router Paths. All the paths are currently children of NavBar so the NavBar is always showing. Can be
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path:"/rooms",
         element:<Rooms />
+      },
+      {
+        path:"/mignon_hall_customizer",
+        element:<Mignon_Complex_Custom/>
       }
     ]
   },
