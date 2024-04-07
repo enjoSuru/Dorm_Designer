@@ -7,6 +7,7 @@ import ErrorPage from './routes/error-page.jsx'
 import { Auth } from './Components/Auth.jsx';
 import NavBar from './Components/navbar.jsx';
 import Rooms from './Components/Rooms.jsx';
+import SliderSizes from './sliders/sliders.jsx';
 
 const router = createBrowserRouter([
   //Router Paths. All the paths are currently children of NavBar so the NavBar is always showing. Can be
