@@ -5,13 +5,14 @@ import Slider from '@mui/material/Slider';
 export default function SliderSizes() {
   const [defaultSliderValue, setDefaultSliderValue] = useState(50);
 
-
-
   const handleDefaultSliderChange = (event, newValue) => {
     setDefaultSliderValue(newValue);
+  
+  const defaultValue = defaultSliderValue;
   };
 
   return (
+
     <Box sx={{ width: 300 }}>
     
       <Slider
@@ -25,5 +26,6 @@ export default function SliderSizes() {
       {/* const smallValue = smallSliderValue; */}
       {/* const defaultValue = defaultSliderValue; */}
     </Box>
+    
   );
 }

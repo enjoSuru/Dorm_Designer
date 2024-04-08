@@ -1,18 +1,15 @@
-.mignon_complex {
-display: grid;
-grid-template-columns: repeat(10, 1fr);
-grid-template-rows: repeat(5, 1fr);
-grid-column-gap: 0px;
-grid-row-gap: 0px;
-}
-
-.div1 { grid-area: 1 / 1 / 6 / 4; }
-.div2 { grid-area: 1 / 8 / 6 / 11; }
-.div3 { grid-area: 3 / 4 / 5 / 8; }
-.div4 { grid-area: 1 / 4 / 3 / 8; } /* Non Draggable*/
-.div5 { grid-area: 5 / 4 / 6 / 8; } /* Non Draggable*/
-
-.yellow
-{
-    background-color: yellow;
-}
+.Mignon_Complex {
+    display: grid;
+    grid-template-columns: repeat(15, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    }
+    
+    .div1 { grid-area: 1 / 6 / 6 / 9; }/*Front Room*/
+    .div2 { grid-area: 1 / 13 / 6 / 16; }/*Back Room*/
+    .div3 { grid-area: 4 / 9 / 5 / 13; }/*Hallway (Draggable but probably won't be used)*/
+    .div4 { grid-area: 2 / 9 / 4 / 11; }/*Bathroom (Non Draggable)*/
+    .div5 { grid-area: 1 / 11 / 4 / 13; }/*Showers(Non Draggable)*/
+    .div6 { grid-area: 5 / 9 / 6 / 13; }/*Sinks (Non Draggable)*/
+    .div7 { grid-area: 1 / 1 / 6 / 6; } /*Input Sliders and Item Creation*/
