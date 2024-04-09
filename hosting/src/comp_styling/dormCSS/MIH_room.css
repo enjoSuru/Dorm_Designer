@@ -15,3 +15,8 @@
   .div3 { grid-area: 6 / 5 / 13 / 9; background-color: #242424;}
   .div4 { grid-area: 8 / 1 / 11 / 2; background-color: #242424;}
   .div5 { grid-area: 6 / 9 / 7 / 10; background-color: #242424;}
+  .square {
+        height: 50px;
+        width: 50px;
+        background-color: #555;
+      }
