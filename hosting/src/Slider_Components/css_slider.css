@@ -1,0 +1,31 @@
+.slider::after
+{
+content: '100';
+color: white;
+font-size: 2rem;
+position: absolute;
+left: 80%;
+right: 20%;
+    
+}
+
+.slider::before
+{
+
+    content: '0';
+    color: white;
+    font-size: 2rem;
+    position: absoulte;
+    left: 12%;
+    top: 26%;
+
+}
+
+.slider
+{
+    -webkit-appearance: none;
+    width: 100%;
+    height: 20px;
+    background-color: linear-gradient(90deg, rgb(214,214,214) 60%, rgb);
+
+}
