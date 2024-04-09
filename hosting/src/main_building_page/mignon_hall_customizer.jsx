@@ -4,6 +4,7 @@ import '../building_layouts/mignon_complex.css'; // Import CSS directly
 import InputColorPicker from '../color_picker/color_picker.jsx';
 import '../button/button.jsx';
 import ContainedButtons from '../button/button.jsx';
+import '../draggableComponents/Square.jsx'
 function MignonHallCustom() {
     return (
         <div className="Mignon_Complex">
