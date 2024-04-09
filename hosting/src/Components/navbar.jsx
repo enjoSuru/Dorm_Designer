@@ -12,6 +12,7 @@ return(
           <Link to="/" className="navbar-brand">Home</Link>
           <Link to="/rooms" className="nav-item me-auto" style={{paddingLeft:"1rem",paddingRight:"1rem"}}>View Rooms</Link>
           <Link to="/account" className="nav-item" style={{paddingLeft:"1rem",paddingRight:"1rem"}}>Account</Link>
+          <Link to="/mignon_hall_customizer" className="nav-item me auto" style={{paddingLeft:"1rem", paddingRight:"1rem"}}>Rooms</Link>
           <LoginPopup />
         </div>
       </nav>
