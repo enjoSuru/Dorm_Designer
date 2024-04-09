@@ -1,17 +1,17 @@
 import React, { useRef, useEffect } from "react";
 import useDragger from "./useDragger";
-import "./draggable.css";
+import "./hook1.css";
 
-function DraggableComponent() {
-  useDragger("draggableElementId");
+function Hook1() {
+  useDragger("draggableElementId2");
 
   return (
     <div
-      id="draggableElementId"
+      id="draggableElementId2"
       style={{
         width: "100px",
         height: "100px",
-        backgroundColor: "blue",
+        backgroundColor: "red",
         position: "absolute",
       }}
     >
@@ -20,4 +20,4 @@ function DraggableComponent() {
   );
 }
 
-export default DraggableComponent;
+export default Hook1;

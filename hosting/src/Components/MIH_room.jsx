@@ -1,6 +1,7 @@
 import "../comp_styling/dormCSS/MIH_room.css";
 import React, { useState } from "react";
 import DraggableComponent from "../draggable/DraggableComponent";
+import Hook1 from "../draggable/hook1";
 
 export default function MIH_room() {
   return (
@@ -9,6 +10,7 @@ export default function MIH_room() {
       <div className="parent">
         <div className="div1">
           <DraggableComponent />
+          <Hook1 />
         </div>
         <div className="div2"></div>
         <div className="div3"></div>

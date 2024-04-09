@@ -1,4 +1,8 @@
 import React, { useRef, useEffect } from "react";
+import { doc, getDoc, setDoc} from "firebase/firestore";
+import { db } from "../firebase-config";
+
+// WE NEED TO IMPLEMENT CUSTOM ID GENERATOR SOMEHOW
 
 function useDragger(id) {
   const isClicked = useRef(false);
@@ -9,7 +13,28 @@ function useDragger(id) {
     lastY: 0,
   });
 
+  const savePosition = async (x, y) => {
+    const docRef = doc(db, "positions", id);
+    await setDoc(docRef, { x, y });
+  };
+
+  const fetchPosition = async () => {
+    const docRef = doc(db, "positions", id);
+    const docSnap = await getDoc(docRef);
+    const data = docSnap.data();
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      const target = document.getElementById(id);
+      target.style.top = `${data.y}px`;
+      target.style.left = `${data.x}px`;
+      coords.current.lastX = data.x;
+      coords.current.lastY = data.y;
+    }
+  };
+
   useEffect(() => {
+    fetchPosition();
+
     const target = document.getElementById(id);
 
     if (!target) throw new Error("Element with given id doesn't exist");
@@ -24,19 +49,31 @@ function useDragger(id) {
     };
 
     const onMouseUp = (e) => {
+      if (!isClicked.current) return;
+
       isClicked.current = false;
-      coords.current.lastX = target.offsetLeft;
-      coords.current.lastY = target.offsetTop;
+    
+      // Final positions after drag.
+      const finalX = parseInt(target.style.left, 10);
+      const finalY = parseInt(target.style.top, 10);
+      savePosition(finalX, finalY);
+      coords.current.lastX = finalX;
+      coords.current.lastY = finalY;
     };
 
     const onMouseMove = (e) => {
       if (!isClicked.current) return;
 
-      const nextX = e.clientX - coords.current.startX + coords.current.lastX;
-      const nextY = e.clientY - coords.current.startY + coords.current.lastY;
+      // Calculate the movement since the mouse down event.
+      const dx = e.clientX - coords.current.startX;
+     const dy = e.clientY - coords.current.startY;
 
-      target.style.top = `${nextY}px`;
+      // Apply the movement from the original position.
+      const nextX = coords.current.lastX + dx;
+      const nextY = coords.current.lastY + dy;
+
       target.style.left = `${nextX}px`;
+      target.style.top = `${nextY}px`;
     };
 
     target.addEventListener("mousedown", onMouseDown);
