@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import useDragger from "./useDragger";
 import "./draggable.css";
 
-function DraggableComponent() {
+function DraggableComponent(props) {
   useDragger("draggableElementId");
 
   return (
