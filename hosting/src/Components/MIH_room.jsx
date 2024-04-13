@@ -8,6 +8,7 @@ import InputColorPicker from "../color_picker/color_picker";
 export default function MIH_room() {
   const [widthValue, setWidthValue] = useState(50);
   const [heightValue, setHeightValue] = useState(50);
+  const [selectedColor, setSelectedColor] = useState("#000000");
 
   const handleWidthChange = (newValue) => {
     setWidthValue(newValue);
@@ -15,6 +16,10 @@ export default function MIH_room() {
 
   const handleHeightChange = (newValue) => {
     setHeightValue(newValue);
+  };
+
+  const handleColorChange = (newColor) => {
+    setSelectedColor(newColor);
   };
   return (
     <>
@@ -28,10 +33,10 @@ export default function MIH_room() {
         <p>Height</p>
         <SliderSizes value={heightValue} onChange={handleHeightChange} />
         <p>Colorpicker</p>
-        <InputColorPicker/>
+        <InputColorPicker onChange={handleColorChange} />
       </div>
         <div className="div1">
-          <DraggableComponent width={widthValue} height={heightValue}/>
+          <DraggableComponent width={widthValue} height={heightValue} color={selectedColor}/>
           <Hook1 />
           
         </div>

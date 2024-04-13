@@ -13,7 +13,7 @@ function DraggableComponent(props) {
       style={{
         width: width,
         height: height,
-        backgroundColor: "blue",
+        backgroundColor: color,
         position: "absolute",
       }}
     >
