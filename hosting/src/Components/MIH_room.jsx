@@ -6,6 +6,16 @@ import SliderSizes from "../sliders/sliders";
 import InputColorPicker from "../color_picker/color_picker";
 
 export default function MIH_room() {
+  const [widthValue, setWidthValue] = useState(50);
+  const [heightValue, setHeightValue] = useState(50);
+
+  const handleWidthChange = (newValue) => {
+    setWidthValue(newValue);
+  };
+
+  const handleHeightChange = (newValue) => {
+    setHeightValue(newValue);
+  };
   return (
     <>
     
@@ -14,14 +24,14 @@ export default function MIH_room() {
       <div className="parent">
       <div className="left-component">
         <p>Width</p>
-        <SliderSizes/>
+        <SliderSizes value={widthValue} onChange={handleWidthChange} />
         <p>Height</p>
-        <SliderSizes/>
+        <SliderSizes value={heightValue} onChange={handleHeightChange} />
         <p>Colorpicker</p>
         <InputColorPicker/>
       </div>
         <div className="div1">
-          <DraggableComponent />
+          <DraggableComponent width={widthValue} height={heightValue}/>
           <Hook1 />
           
         </div>

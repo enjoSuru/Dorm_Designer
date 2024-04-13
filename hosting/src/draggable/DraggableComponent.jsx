@@ -4,13 +4,15 @@ import "./draggable.css";
 
 function DraggableComponent(props) {
   useDragger("draggableElementId");
-
+  const width = props.width;
+  const height = props.height;
+  const color = props.color;
   return (
     <div
       id="draggableElementId"
       style={{
-        width: "100px",
-        height: "100px",
+        width: width,
+        height: height,
         backgroundColor: "blue",
         position: "absolute",
       }}
