@@ -6,7 +6,7 @@ function InputColorPicker()
     return(
     <div className = "color_selector">
         <input type="color" onChange={(e)=>setColor(e.target.value)}/>
-        <h1>{color}</h1>
+        
         </div>
      )
 }

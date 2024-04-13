@@ -20,3 +20,11 @@
         width: 50px;
         background-color: #555;
       }
+      .left-component {
+        position: absolute;
+        top: 1;
+        left: 0;
+        width: 50px; /* Adjust width as needed */
+        height: 75%; /* Take full height of the parent container */
+        
+      }

@@ -13,7 +13,7 @@ export default function SliderSizes() {
 
   return (
 
-    <Box sx={{ width: 300 }}>
+    <Box sx={{ width: 200 }}>
     
       <Slider
         value={defaultSliderValue}
