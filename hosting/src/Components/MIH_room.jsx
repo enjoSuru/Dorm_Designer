@@ -4,11 +4,14 @@ import DraggableComponent from "../draggable/DraggableComponent";
 import Hook1 from "../draggable/hook1";
 import SliderSizes from "../sliders/sliders";
 import InputColorPicker from "../color_picker/color_picker";
+import { Button } from "bootstrap";
 
 export default function MIH_room() {
   const [widthValue, setWidthValue] = useState(50);
   const [heightValue, setHeightValue] = useState(50);
+  const [radiusValue, setRadiusValue] = useState(50);
   const [selectedColor, setSelectedColor] = useState("#000000");
+  
 
   const handleWidthChange = (newValue) => {
     setWidthValue(newValue);
@@ -18,9 +21,14 @@ export default function MIH_room() {
     setHeightValue(newValue);
   };
 
+  const handleRadiusChange = (newValue) =>{
+    setRadiusValue(newValue);
+  }
   const handleColorChange = (newColor) => {
     setSelectedColor(newColor);
   };
+  
+
   return (
     <>
     
@@ -32,11 +40,15 @@ export default function MIH_room() {
         <SliderSizes value={widthValue} onChange={handleWidthChange} />
         <p>Height</p>
         <SliderSizes value={heightValue} onChange={handleHeightChange} />
+        <p>Radius</p>
+        <SliderSizes value={radiusValue} onChange={handleRadiusChange} />
         <p>Colorpicker</p>
         <InputColorPicker onChange={handleColorChange} />
+        
       </div>
         <div className="div1">
-          <DraggableComponent width={widthValue} height={heightValue} color={selectedColor}/>
+          
+          <DraggableComponent width={widthValue} height={heightValue} radius={radiusValue} color={selectedColor}/>
           <Hook1 />
           
         </div>
