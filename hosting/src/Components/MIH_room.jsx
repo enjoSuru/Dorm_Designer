@@ -8,6 +8,8 @@ import { Button } from "bootstrap";
 import { v4 as uuidv4 } from "uuid";
 import { useParams } from "react-router-dom";
 import { getDraggableItems } from "../firebaseService";
+import { db } from "../firebase-config";
+import { doc, deleteDoc } from "firebase/firestore";
 
 export default function MIH_room() {
   const [draggables, setDraggables] = useState([]);
@@ -16,11 +18,6 @@ export default function MIH_room() {
   const [radiusValue, setRadiusValue] = useState(50);
   const [selectedColor, setSelectedColor] = useState("#000000");
   const { roomID } = useParams();
-  const handleDelete = (elementId) => {
-    // Filter out the draggable item with the given elementId
-    const updatedDraggables = draggables.filter(draggable => draggable.id !== elementId);
-    setDraggables(updatedDraggables);
-  };
 
   // Function to create and add a new draggable item
   const addNewDraggable = () => {
@@ -46,6 +43,17 @@ export default function MIH_room() {
     }
   }, [roomID]);
 
+  const handleDelete = async (elementId) => {
+    try {
+      await deleteDoc(doc(db, `rooms/${roomID}/positions/${elementId}`));
+      console.log(`Deleted element ${elementId}`);
+      // Update local state to remove the draggable
+      setDraggables(draggables.filter((item) => item.id !== elementId));
+    } catch (error) {
+      console.error("Failed to delete element:", error);
+    }
+  };
+
   // Handlers for the slider changes
   const handleWidthChange = (newValue) => setWidthValue(newValue);
   const handleHeightChange = (newValue) => setHeightValue(newValue);
@@ -64,19 +72,21 @@ export default function MIH_room() {
           <p>Radius</p>
           <SliderSizes value={radiusValue} onChange={handleRadiusChange} />
           <p>Colorpicker</p>
-          <InputColorPicker value={selectedColor} onChange={handleColorChange} />
+          <InputColorPicker
+            value={selectedColor}
+            onChange={handleColorChange}
+          />
           <button onClick={addNewDraggable}>Add new draggable</button>
           <div
-      style={{
-        width: widthValue,
-        height: heightValue,
-        borderRadius: `${radiusValue}%`,
-        backgroundColor: selectedColor,
-        position: "absolute",
-        border: "2px solid black", // Adds a visible border
-      }}
-    >
-    </div>
+            style={{
+              width: widthValue,
+              height: heightValue,
+              borderRadius: `${radiusValue}%`,
+              backgroundColor: selectedColor,
+              position: "absolute",
+              border: "2px solid black", // Adds a visible border
+            }}
+          ></div>
         </div>
         <div className="div1">
           {draggables.map((draggable) => (
@@ -92,7 +102,6 @@ export default function MIH_room() {
             />
           ))}
         </div>
-    
 
         <div className="div2"></div>
         <div className="div3"></div>
