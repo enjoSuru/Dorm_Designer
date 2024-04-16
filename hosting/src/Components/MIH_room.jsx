@@ -60,11 +60,19 @@ export default function MIH_room() {
           <p>Radius</p>
           <SliderSizes value={radiusValue} onChange={handleRadiusChange} />
           <p>Colorpicker</p>
-          <InputColorPicker
-            value={selectedColor}
-            onChange={handleColorChange}
-          />
+          <InputColorPicker value={selectedColor} onChange={handleColorChange} />
           <button onClick={addNewDraggable}>Add new draggable</button>
+          <div
+      style={{
+        width: widthValue,
+        height: heightValue,
+        borderRadius: `${radiusValue}%`,
+        backgroundColor: selectedColor,
+        position: "absolute",
+        border: "2px solid black", // Adds a visible border
+      }}
+    >
+    </div>
         </div>
         <div className="div1">
           {draggables.map((draggable) => (
@@ -79,6 +87,8 @@ export default function MIH_room() {
             />
           ))}
         </div>
+    
+
         <div className="div2"></div>
         <div className="div3"></div>
         <div className="div4"></div>

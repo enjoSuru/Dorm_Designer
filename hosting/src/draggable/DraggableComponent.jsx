@@ -20,14 +20,19 @@ function DraggableComponent({
   // Fetch properties from Firestore when the component mounts
   useEffect(() => {
     const fetchProperties = async () => {
-      const docRef = doc(db, `rooms/${roomId}/positions/${elementId}`);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        setWidth(data.width || initialWidth);
-        setHeight(data.height || initialHeight);
-        setColor(data.color || initialColor);
-        setRadius(data.radius || initialRadius);
+      try {
+        const docRef = doc(db, `rooms/${roomId}/positions/${elementId}`);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          setWidth(data.width || initialWidth);
+          setHeight(data.height || initialHeight);
+          setColor(data.color || initialColor);
+          setRadius(data.radius || initialRadius);
+        }
+      } catch (error) {
+        console.error("Error fetching properties:", error);
+        // Optionally, you can set default values or handle the error in some other way
       }
     };
     fetchProperties();
@@ -40,18 +45,7 @@ function DraggableComponent({
     initialRadius,
   ]);
 
-  //
-  // TODO: Save properties to Firestore when they change
-  //
-  /* 
-  useEffect(() => {
-    const saveProperties = async () => {
-      const docRef = doc(db, `rooms/${roomId}/positions/${elementId}`);
-      await setDoc(docRef, { width, height, color, radius });
-    };
-    saveProperties();
-  }, [width, height, color, radius, roomId, elementId]);
-*/
+
   useDragger(roomId, elementId); // Initialize dragging functionality
 
   return (
