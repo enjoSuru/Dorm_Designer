@@ -23,10 +23,10 @@ export default function MIH_room() {
     const newId = uuidv4(); // Generate a unique ID
     const newDraggable = {
       id: newId,
-      width: 100,
-      height: 100,
-      color: "Blue",
-      radius: 50,
+      width: widthValue,
+      height: heightValue,
+      color: selectedColor,
+      radius: radiusValue,
     };
     setDraggables([...draggables, newDraggable]);
   };
