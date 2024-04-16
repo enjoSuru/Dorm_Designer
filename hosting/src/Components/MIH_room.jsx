@@ -15,8 +15,12 @@ export default function MIH_room() {
   const [heightValue, setHeightValue] = useState(50);
   const [radiusValue, setRadiusValue] = useState(50);
   const [selectedColor, setSelectedColor] = useState("#000000");
-
   const { roomID } = useParams();
+  const handleDelete = (elementId) => {
+    // Filter out the draggable item with the given elementId
+    const updatedDraggables = draggables.filter(draggable => draggable.id !== elementId);
+    setDraggables(updatedDraggables);
+  };
 
   // Function to create and add a new draggable item
   const addNewDraggable = () => {
@@ -84,6 +88,7 @@ export default function MIH_room() {
               initialHeight={draggable.height}
               initialColor={draggable.color}
               initialRadius={draggable.radius}
+              onDelete={handleDelete} // Pass the delete handler function
             />
           ))}
         </div>

@@ -11,11 +11,15 @@ function DraggableComponent({
   initialRadius,
   elementId,
   roomId,
+  onDelete,
 }) {
   const [width, setWidth] = useState(initialWidth);
   const [height, setHeight] = useState(initialHeight);
   const [color, setColor] = useState(initialColor);
   const [radius, setRadius] = useState(initialRadius);
+  const handleDelete = () => {
+    onDelete(elementId); // Pass the elementId to the parent component for deletion
+  };
 
   // Fetch properties from Firestore when the component mounts
   useEffect(() => {
@@ -58,6 +62,10 @@ function DraggableComponent({
         backgroundColor: color,
         position: "absolute",
         border: "2px solid black", // Adds a visible border
+      }}
+      onContextMenu={(e) => {
+        e.preventDefault(); // Prevent the default context menu
+        handleDelete(); // Call the delete function when right-clicked
       }}
     >
       Drag me!
