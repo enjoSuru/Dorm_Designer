@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { doc, getDoc, setDoc } from "firebase/firestore"; // Make sure you import these Firestore functions
+import { doc, getDoc, setDoc } from "firebase/firestore"; 
 import useDragger from "./useDragger";
 import "./draggable.css";
-import { db } from "../firebase-config"; // Adjust the path as necessary
+import { db } from "../firebase-config";
 
 function DraggableComponent({
   initialWidth,
   initialHeight,
   initialColor,
   initialRadius,
+  initialText,
   elementId,
   roomId,
   onDelete,
@@ -17,11 +18,12 @@ function DraggableComponent({
   const [height, setHeight] = useState(initialHeight);
   const [color, setColor] = useState(initialColor);
   const [radius, setRadius] = useState(initialRadius);
+  const [text, setText] = useState(initialText);
+
   const handleDelete = () => {
-    onDelete(elementId); // Pass the elementId to the parent component for deletion
+    onDelete(elementId);
   };
 
-  // Fetch properties from Firestore when the component mounts
   useEffect(() => {
     const fetchProperties = async () => {
       try {
@@ -33,10 +35,10 @@ function DraggableComponent({
           setHeight(data.height || initialHeight);
           setColor(data.color || initialColor);
           setRadius(data.radius || initialRadius);
+          setText(data.text || initialText);
         }
       } catch (error) {
         console.error("Error fetching properties:", error);
-        // Optionally, you can set default values or handle the error in some other way
       }
     };
     fetchProperties();
@@ -47,10 +49,10 @@ function DraggableComponent({
     initialHeight,
     initialColor,
     initialRadius,
+    initialText,
   ]);
 
-
-  useDragger(roomId, elementId); // Initialize dragging functionality
+  useDragger(roomId, elementId);
 
   return (
     <div
@@ -61,14 +63,15 @@ function DraggableComponent({
         borderRadius: `${radius}%`,
         backgroundColor: color,
         position: "absolute",
-        border: "2px solid black", // Adds a visible border
+        border: "2px solid black",
       }}
       onContextMenu={(e) => {
-        e.preventDefault(); // Prevent the default context menu
-        handleDelete(); // Call the delete function when right-clicked
+        e.preventDefault();
+        handleDelete();
       }}
     >
-      Drag me!
+      {/* Render text content */}
+      <span>{text}</span>
     </div>
   );
 }

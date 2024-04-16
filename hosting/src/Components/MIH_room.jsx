@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 import { getDraggableItems } from "../firebaseService";
 import { db } from "../firebase-config";
 import { doc, deleteDoc } from "firebase/firestore";
+import BasicTextFields from "../textbox/textbox";
 
 export default function MIH_room() {
   const [draggables, setDraggables] = useState([]);
@@ -17,6 +18,7 @@ export default function MIH_room() {
   const [heightValue, setHeightValue] = useState(50);
   const [radiusValue, setRadiusValue] = useState(50);
   const [selectedColor, setSelectedColor] = useState("#000000");
+  const [divText, setDivText] = useState("Item");
   const { roomID } = useParams();
 
   // Function to create and add a new draggable item
@@ -28,10 +30,14 @@ export default function MIH_room() {
       height: heightValue,
       color: selectedColor,
       radius: radiusValue,
+      text: divText
     };
     setDraggables([...draggables, newDraggable]);
   };
-
+  const handleTextChange = (newText) => {
+    // Update the divText state with the new text
+    setDivText(newText);
+  };
   useEffect(() => {
     if (roomID) {
       getDraggableItems(roomID)
@@ -76,6 +82,8 @@ export default function MIH_room() {
             value={selectedColor}
             onChange={handleColorChange}
           />
+          
+          <BasicTextFields value={divText} onChange={handleTextChange} />
           <button onClick={addNewDraggable}>Add new draggable</button>
           <div
             style={{
@@ -86,7 +94,7 @@ export default function MIH_room() {
               position: "absolute",
               border: "2px solid black", // Adds a visible border
             }}
-          ></div>
+          >{divText}</div>
         </div>
         <div className="div1">
           {draggables.map((draggable) => (
@@ -97,11 +105,12 @@ export default function MIH_room() {
               initialWidth={draggable.width}
               initialHeight={draggable.height}
               initialColor={draggable.color}
+              initialText={draggable.text}
               initialRadius={draggable.radius}
               onDelete={handleDelete} // Pass the delete handler function
             />
           ))}
-        </div>
+        {divText}</div>
 
         <div className="div2"></div>
         <div className="div3"></div>
