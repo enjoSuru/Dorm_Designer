@@ -14,6 +14,7 @@ export default function SliderSizes({ value, onChange }) {
         onChange={handleSliderChange}
         aria-label="Default"
         valueLabelDisplay="auto"
+        min={1}
       />
     </Box>
   );
