@@ -10,6 +10,7 @@ import Rooms from "./Components/Rooms.jsx";
 import RoomPage from "./routes/roomPage.jsx";
 import Account from "./Components/Account.jsx";
 import HomeRooms from "./Components/HomeRooms.jsx";
+import WhatToBring from "./Components/WhatToBring.jsx";
 
 const router = createBrowserRouter([
   //Router Paths. All the paths are currently children of NavBar so the NavBar is always showing. Can be
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: "/dorms",
         element: <HomeRooms />,
+      },
+      {
+        path: "/WhatToBring",
+        element: <WhatToBring />,
       },
     ],
   },

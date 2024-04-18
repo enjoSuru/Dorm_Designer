@@ -1,8 +1,10 @@
 import React from "react";
+import DormNavbar from "./DormNavbar";
 
 const HomeRooms = () => {
   return (
     <>
+      <DormNavbar />
       <div className="d-flex p-4 flex-row hall-div">
         <img
           src="https://firebasestorage.googleapis.com/v0/b/aidentestsite-af39d.appspot.com/o/alumni-tower.jpg?alt=media&token=51bb778f-b4bd-454f-9e74-1e1a7a86716d"

@@ -31,7 +31,7 @@ export default function NavBar() {
             Home
           </Link>
           <Link to="/dorms" className="navbar-brand">
-            Dorms
+            Dorm Info
           </Link>
           {user ? (
             <Link to="/rooms" className="nav-item">
