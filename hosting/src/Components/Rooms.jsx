@@ -4,6 +4,7 @@ import { collection, getDocs, getDoc, addDoc, deleteDoc, doc, setDoc } from "fir
 import { db } from "../firebase-config.js";
 import "../comp_styling/Rooms.css";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import CopyToClip from "./copyToClip.jsx";
 
 function Rooms() {
   const roomCollectionRef = collection(db, "rooms");
@@ -79,6 +80,7 @@ function Rooms() {
       if(outUser.uid==roomData.owner || outUser.uid==roomData.editor1 || 
         outUser.uid==roomData.editor2 || outUser.uid==roomData.editor3){
           console.log("User is already an editor or owner of this room.");
+          alert("User is already an editor or owner of this room.");
           return;
         }
       if(numEdit < 3){
@@ -215,6 +217,7 @@ function Rooms() {
               {room.dorm} Dorm Room: '{room.name}' <br></br>Room Owner:{" "}
               {room.owner}
             </p>
+            <div className="d-flex flex-row justify-content-between">
             {room.owner == outUser.uid ?             
               <button
                 onClick={(e) => {
@@ -229,7 +232,10 @@ function Rooms() {
                 removeRoom(room.id);}}}
                 >Remove</button>
             }
-    
+            <CopyToClip 
+            value={room.id}
+            display="Copy Code" />
+            </div>
           </div>:
           null
         ))}
