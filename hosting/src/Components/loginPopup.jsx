@@ -10,6 +10,12 @@ export default function LoginPopup(){
     setModal(!modal);
   }
 
+  if(modal) {
+    document.body.classList.add('active-modal')
+  } else {
+    document.body.classList.remove('active-modal')
+  }
+  
   //Modal popup window for logging in. Probably could use some different styling and I'm going to make it to where
   //you can't scroll when the popup is open.
   return(

@@ -8,6 +8,10 @@
   position:fixed;
 }
 
+body.active-modal {
+  overflow-y: hidden;
+}
+
 .overlay{
   background:rgba(49, 49, 49, 0.8);
 }
