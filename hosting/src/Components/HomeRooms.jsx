@@ -14,7 +14,7 @@ const HomeRooms = () => {
         <div className="d-flex p-4 flex-column">
           <h2
             className="align-self-start align-self-center"
-            style={{ paddingBottom: "1px", color: "#665ecb" }}
+            style={{ paddingBottom: "1px", color: "#005EB8" }}
           >
             Alumni Tower
           </h2>
@@ -43,7 +43,7 @@ const HomeRooms = () => {
         <div className="d-flex p-4 flex-column">
           <h2
             className="align-self-start align-self-center"
-            style={{ paddingBottom: "50px", color: "#665ecb" }}
+            style={{ paddingBottom: "50px", color: "#005EB8" }}
           >
             Andrews Hall
           </h2>
@@ -68,7 +68,7 @@ const HomeRooms = () => {
         <div className="d-flex p-4 flex-column">
           <h2
             className="align-self-start align-self-center"
-            style={{ paddingBottom: "50px", color: "#665ecb" }}
+            style={{ paddingBottom: "50px", color: "#005EB8" }}
           >
             Cartmell Hall
           </h2>
@@ -94,7 +94,7 @@ const HomeRooms = () => {
         <div className="d-flex p-4 flex-column">
           <h2
             className="align-self-start align-self-center"
-            style={{ paddingBottom: "50px", color: "#665ecb" }}
+            style={{ paddingBottom: "50px", color: "#005EB8" }}
           >
             Eagle Lake Apartments
           </h2>
@@ -118,7 +118,7 @@ const HomeRooms = () => {
         <div className="d-flex p-4 flex-column">
           <h2
             className="align-self-start align-self-center"
-            style={{ paddingBottom: "50px", color: "#665ecb" }}
+            style={{ paddingBottom: "50px", color: "#005EB8" }}
           >
             Fields Hall
           </h2>
@@ -143,7 +143,7 @@ const HomeRooms = () => {
         <div className="d-flex p-4 flex-column">
           <h2
             className="align-self-start align-self-center"
-            style={{ paddingBottom: "50px", color: "#665ecb" }}
+            style={{ paddingBottom: "50px", color: "#005EB8" }}
           >
             Mays Hall Apartments
           </h2>
@@ -168,7 +168,7 @@ const HomeRooms = () => {
         <div className="d-flex p-4 flex-column">
           <h2
             className="align-self-start align-self-center"
-            style={{ paddingBottom: "50px", color: "#665ecb" }}
+            style={{ paddingBottom: "50px", color: "#005EB8" }}
           >
             Mignon Hall
           </h2>
@@ -195,7 +195,7 @@ const HomeRooms = () => {
         <div className="d-flex p-4 flex-column">
           <h2
             className="align-self-start align-self-center"
-            style={{ paddingBottom: "50px", color: "#665ecb" }}
+            style={{ paddingBottom: "50px", color: "#005EB8" }}
           >
             Mignon Tower
           </h2>

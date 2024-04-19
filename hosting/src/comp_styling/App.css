@@ -10,7 +10,14 @@
 }
 
 .what-are-we{
-  color:#665ecb;
+  color:#005EB8;
+}
+
+.text-primary{
+  padding-left: 200px;
+  font-size: large;
+  max-width: 1200px;
+  word-wrap: break-word;
 }
 
 .hall-div{
