@@ -10,14 +10,14 @@ export default function LoginPopup(){
     setModal(!modal);
   }
 
+  // If the modal is open, add the class active-modal, which will prevent scrolling
   if(modal) {
     document.body.classList.add('active-modal')
   } else {
     document.body.classList.remove('active-modal')
   }
-  
-  //Modal popup window for logging in. Probably could use some different styling and I'm going to make it to where
-  //you can't scroll when the popup is open.
+
+  //Modal popup window for logging in.
   return(
     <>
       <button className="open-popup-btn" onClick={toggleModal}>Log in</button>
