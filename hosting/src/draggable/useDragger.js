@@ -23,15 +23,15 @@ function useDragger(roomId, elementId, properties) {
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         const data = docSnap.data();
-        target.style.left = `${data.x}px`;
-        target.style.top = `${data.y}px`;
+        target.style.left = `${data.x*window.innerWidth}px`;
+        target.style.top = `${data.y*window.innerHeight}px`;
       }
     };
 
     fetchPosition();
 
-    let startX = 0;
-    let startY = 0;
+    let startX = 100;
+    let startY = 100;
     let isDragging = false;
 
     // Mouse event handlers
@@ -53,8 +53,10 @@ function useDragger(roomId, elementId, properties) {
     const onMouseUp = () => {
       if (!isDragging) return;
       isDragging = false;
-      const finalX = parseFloat(target.style.left);
-      const finalY = parseFloat(target.style.top);
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const finalX = parseFloat(target.style.left)/width;
+      const finalY = parseFloat(target.style.top)/height;
       savePosition(finalX, finalY, properties);
     };
 

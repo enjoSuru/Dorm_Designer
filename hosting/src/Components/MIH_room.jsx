@@ -64,6 +64,7 @@ export default function MIH_room() {
     }
   }, [roomID]);
 
+
   // Add a new draggable element to the room
   const addNewDraggable = () => {
     const newId = uuidv4();
@@ -78,7 +79,7 @@ export default function MIH_room() {
       text: divText,
     };
 
-    setDoc(newPosRef, { x: 100, y: 100 }); // Example starting position
+    setDoc(newPosRef, { x: 0.25, y: 0.25 }); // Example starting position
     setDoc(newPropRef, newDraggable);
 
     setDraggables([...draggables, newDraggable]);
