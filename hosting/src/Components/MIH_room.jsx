@@ -8,23 +8,68 @@ import { v4 as uuidv4 } from "uuid";
 import { useParams } from "react-router-dom";
 import { getDraggableItems } from "../firebaseService";
 import { db } from "../firebase-config";
-import { doc, deleteDoc, onSnapshot, collection } from "firebase/firestore";
+import {
+  doc,
+  deleteDoc,
+  onSnapshot,
+  collection,
+  setDoc,
+} from "firebase/firestore";
 import BasicTextFields from "../textbox/textbox";
 
+// Component for the Mignon Style Room
 export default function MIH_room() {
-  const [draggables, setDraggables] = useState([]); // State for storing draggable elements
-  const [widthValue, setWidthValue] = useState(50); // State for draggable element width
-  const [heightValue, setHeightValue] = useState(50); // State for draggable element height
-  const [radiusValue, setRadiusValue] = useState(50); // State for draggable element border radius
-  const [selectedColor, setSelectedColor] = useState("#000000"); // State for draggable element color
-  const [divText, setDivText] = useState("Item"); // State for draggable element text
-  const { roomID } = useParams(); // Extracting roomID from the URL parameters
+  const [draggables, setDraggables] = useState([]);
+  const [widthValue, setWidthValue] = useState(50);
+  const [heightValue, setHeightValue] = useState(50);
+  const [radiusValue, setRadiusValue] = useState(50);
+  const [selectedColor, setSelectedColor] = useState("#000000");
+  const [divText, setDivText] = useState("Drag me!");
+  const { roomID } = useParams();
 
-  // Function to add a new draggable item to the room
+  useEffect(() => {
+    // Fetch draggable items and their properties from Firestore
+    if (roomID) {
+      const unsubscribe = onSnapshot(
+        collection(db, "rooms", roomID, "positions"),
+        (snapshot) => {
+          const items = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+
+          const unsubProps = onSnapshot(
+            collection(db, "rooms", roomID, "properties"),
+            (snapshot) => {
+              const properties = snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+              }));
+              const combinedItems = items.map((item) => ({
+                ...item,
+                ...properties.find((prop) => prop.id === item.id),
+              }));
+              setDraggables(combinedItems);
+            }
+          );
+
+          return () => {
+            unsubProps();
+            unsubscribe();
+          };
+        }
+      );
+
+      return () => unsubscribe(); // Cleanup on unmount
+    }
+  }, [roomID]);
+
+  // Add a new draggable element to the room
   const addNewDraggable = () => {
-    const newId = uuidv4(); // Generate a unique ID for the new draggable
+    const newId = uuidv4();
+    const newPosRef = doc(db, `rooms/${roomID}/positions/${newId}`);
+    const newPropRef = doc(db, `rooms/${roomID}/properties/${newId}`);
     const newDraggable = {
-      // Define new draggable item
       id: newId,
       width: widthValue,
       height: heightValue,
@@ -32,84 +77,52 @@ export default function MIH_room() {
       radius: radiusValue,
       text: divText,
     };
-    setDraggables([...draggables, newDraggable]); // Add new draggable to state array
+
+    setDoc(newPosRef, { x: 100, y: 100 }); // Example starting position
+    setDoc(newPropRef, newDraggable);
+
+    setDraggables([...draggables, newDraggable]);
   };
 
-  // Function to update draggable text content
+  // Handle text change for the draggable element
   const handleTextChange = (newText) => {
-    setDivText(newText); // Update the divText state with the new text
+    setDivText(newText);
   };
 
-  // This is what I did for real-time updates pretty much. onSnapshot executes every time there is a change to the
-  // document. Right now it's executing quite a lot, though. You get the same ID error like thousands of times and
-  // it slows down the updates.
-  onSnapshot(collection(db, "rooms", roomID, "positions"), (snapshot) => {
-    const draggableItems = [];
-    snapshot.docs.forEach((doc) => {
-      draggableItems.push({id:doc.id, ...doc.data()});
-    });
-    draggableItems.forEach((item) => {setDraggables([...draggables, item])});
-    console.log(draggableItems);
-  });
-
-  // Effect hook to fetch draggable items when roomID is available
-  /*useEffect(() => {
-    if (roomID) {
-      getDraggableItems(roomID)
-        .then((items) => {
-          console.log("Fetched Items:", items); // Log fetched items
-          setDraggables(items); // Set draggable items to state
-        })
-        .catch((error) => console.error("Failed to fetch items:", error)); // Log error if fetching fails
-    }
-  }, [roomID]);*/
-
-  // Function to handle the deletion of a draggable element
+  // Delete a draggable element from the room
   const handleDelete = async (elementId) => {
-    try {
-      await deleteDoc(doc(db, `rooms/${roomID}/positions/${elementId}`)); // Delete the position data from Firestore
-      await deleteDoc(doc(db, `rooms/${roomID}/properties/${elementId}`)); // Delete the properties data from Firestore
-      console.log(`Deleted element ${elementId}`); // Log deletion success
-      setDraggables(draggables.filter((item) => item.id !== elementId)); // Remove the element from local state
-    } catch (error) {
-      console.error("Failed to delete element:", error); // Log deletion failure
-    }
+    await deleteDoc(doc(db, `rooms/${roomID}/positions/${elementId}`));
+    await deleteDoc(doc(db, `rooms/${roomID}/properties/${elementId}`));
+    setDraggables(draggables.filter((item) => item.id !== elementId));
   };
-
-  // Handlers for updating state on slider changes
-  const handleWidthChange = (newValue) => setWidthValue(newValue); // Update width state
-  const handleHeightChange = (newValue) => setHeightValue(newValue); // Update height state
-  const handleRadiusChange = (newValue) => setRadiusValue(newValue); // Update radius state
-  const handleColorChange = (newColor) => setSelectedColor(newColor); // Update color state
 
   return (
     <>
       <h2>Mignon Style Room</h2>
       <div className="parent">
-        {" "}
         <div className="left-component">
-          {" "}
           <p>Width</p>
-          <SliderSizes value={widthValue} onChange={handleWidthChange} />
+          <SliderSizes value={widthValue} onChange={setWidthValue} />
           <p>Height</p>
-          <SliderSizes value={heightValue} onChange={handleHeightChange} />
+          <SliderSizes value={heightValue} onChange={setHeightValue} />
           <p>Radius</p>
-          <SliderSizes value={radiusValue} onChange={handleRadiusChange} />
-          <p>Colorpicker</p>
-          <InputColorPicker
-            value={selectedColor}
-            onChange={handleColorChange}
-          />{" "}
+          <SliderSizes value={radiusValue} onChange={setRadiusValue} />
+          <p>Color</p>
+          <InputColorPicker value={selectedColor} onChange={setSelectedColor} />
+          <p>Text</p>
           <BasicTextFields value={divText} onChange={handleTextChange} />
           <button onClick={addNewDraggable}>Add new draggable</button>
           <div
             style={{
-              width: widthValue,
-              height: heightValue,
+              margin: "10px",
+              padding: "10px",
+              width: `${widthValue}px`,
+              height: `${heightValue}px`,
               borderRadius: `${radiusValue}%`,
               backgroundColor: selectedColor,
-              position: "absolute",
-              border: "2px solid black", // Adds a visible border
+              border: "2px solid black",
+              textAlign: "center",
+              lineHeight: `${heightValue}px`,
             }}
           >
             {divText}
