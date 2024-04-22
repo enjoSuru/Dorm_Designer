@@ -84,32 +84,27 @@ function Rooms() {
           return;
         }
       if(numEdit < 3){
-        switch(numEdit){
-          case 0:{
+          if(roomData.editor1 == ""){
             await setDoc(doc(db, "rooms", roomCode),
             {
               numEditors:numEdit+1,
               editor1: outUser.uid,
-            }, {merge: true});
-            break;
+            },{merge: true});
           }
-          case 1:{
+          else if(roomData.editor2 == ""){
             await setDoc(doc(db, "rooms", roomCode),
             {
               numEditors:numEdit+1,
               editor2: outUser.uid,
-            }, {merge: true});
-            break;
+            },{merge: true});
           }
-          case 2:{
+          else{
             await setDoc(doc(db, "rooms", roomCode),
             {
               numEditors:numEdit+1,
               editor3: outUser.uid,
-            }, {merge: true});
-            break;
+            },{merge: true});
           }
-        }
         getRoomList();
       }
       else{
@@ -123,34 +118,28 @@ function Rooms() {
     const rDoc = await getDoc(roomRef);
     const roomData = { ...rDoc.data() };
     const numEdit = roomData.numEditors;
-    
-      switch(numEdit-1){
-        case 0:{
-          await setDoc(doc(db, "rooms", roomCode),
+    if(roomData.editor1 == outUser.uid){
+      await setDoc(doc(db, "rooms", roomCode),
           {
             numEditors:numEdit-1,
             editor1: "",
           },{merge: true});
-          break;
-        }
-        case 1:{
-          await setDoc(doc(db, "rooms", roomCode),
+    }
+    if(roomData.editor2 == outUser.uid){
+      await setDoc(doc(db, "rooms", roomCode),
           {
             numEditors:numEdit-1,
             editor2: "",
           },{merge: true});
-          break;
-        }
-        case 2:{
-          await setDoc(doc(db, "rooms", roomCode),
+    }
+    if(roomData.editor3 == outUser.uid){
+      await setDoc(doc(db, "rooms", roomCode),
           {
             numEditors:numEdit-1,
             editor3: "",
           },{merge: true});
-          break;
-        }
-      }
-      getRoomList();
+    }
+    getRoomList();
   }
 
   const deleteRoom = async (roomId) => {
