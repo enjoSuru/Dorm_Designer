@@ -9,7 +9,7 @@ function DraggableComponent({
   initialWidth = 100,
   initialHeight = 100,
   initialColor = "#FFFFFF",
-  initialRadius = 0,
+  initialRadius = 1,
   initialText = "Drag me!",
   elementId, // Unique identifier for the draggable element
   roomId, // Room identifier where the draggable is located

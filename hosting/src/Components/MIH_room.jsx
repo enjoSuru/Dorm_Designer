@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useParams } from "react-router-dom";
 import { getDraggableItems } from "../firebaseService";
 import { db } from "../firebase-config";
-import { doc, deleteDoc } from "firebase/firestore";
+import { doc, deleteDoc, onSnapshot, collection } from "firebase/firestore";
 import BasicTextFields from "../textbox/textbox";
 
 export default function MIH_room() {
@@ -40,8 +40,20 @@ export default function MIH_room() {
     setDivText(newText); // Update the divText state with the new text
   };
 
+  // This is what I did for real-time updates pretty much. onSnapshot executes every time there is a change to the
+  // document. Right now it's executing quite a lot, though. You get the same ID error like thousands of times and
+  // it slows down the updates.
+  onSnapshot(collection(db, "rooms", roomID, "positions"), (snapshot) => {
+    const draggableItems = [];
+    snapshot.docs.forEach((doc) => {
+      draggableItems.push({id:doc.id, ...doc.data()});
+    });
+    draggableItems.forEach((item) => {setDraggables([...draggables, item])});
+    console.log(draggableItems);
+  });
+
   // Effect hook to fetch draggable items when roomID is available
-  useEffect(() => {
+  /*useEffect(() => {
     if (roomID) {
       getDraggableItems(roomID)
         .then((items) => {
@@ -50,7 +62,7 @@ export default function MIH_room() {
         })
         .catch((error) => console.error("Failed to fetch items:", error)); // Log error if fetching fails
     }
-  }, [roomID]);
+  }, [roomID]);*/
 
   // Function to handle the deletion of a draggable element
   const handleDelete = async (elementId) => {
