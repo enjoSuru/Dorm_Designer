@@ -20,7 +20,7 @@ function DraggableComponent({
   const [radius, setRadius] = useState(initialRadius);
   const [text, setText] = useState(initialText);
 
-  // Fetch properties from Firestore when the component mounts
+  // Fetch properties from Firestore when the component mounts or when roomId or elementId changes
   useEffect(() => {
     const propRef = doc(db, `rooms/${roomId}/properties/${elementId}`);
     const fetchProperties = async () => {
@@ -28,6 +28,7 @@ function DraggableComponent({
         const docSnap = await getDoc(propRef);
         if (docSnap.exists()) {
           const data = docSnap.data();
+          // Update state with fetched properties
           setWidth(data.width);
           setHeight(data.height);
           setColor(data.color);
@@ -39,14 +40,15 @@ function DraggableComponent({
       }
     };
     fetchProperties();
-  }, [roomId, elementId]);
+  }, [roomId, elementId]); // Run effect when roomId or elementId changes
 
-  // Prepare properties object to pass to useDragger
+  // Prepare properties object to pass to useDragger hook
   const properties = { width, height, color, radius, text };
 
   // Use custom hook for draggable functionality
   useDragger(roomId, elementId, properties);
 
+  // Function to handle delete action
   const handleDelete = () => {
     onDelete(elementId);
   };
@@ -63,11 +65,11 @@ function DraggableComponent({
         border: "2px solid black",
       }}
       onContextMenu={(e) => {
-        e.preventDefault();
-        handleDelete();
+        e.preventDefault(); // Prevent default context menu
+        handleDelete(); // Call delete handler
       }}
     >
-      {text}
+      {text} {/* Render text content */}
     </div>
   );
 }

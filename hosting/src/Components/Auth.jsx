@@ -9,19 +9,23 @@ import {
 import React, { useState, useEffect } from "react";
 import "../comp_styling/Auth.css";
 
+// Authentication component
 export const Auth = () => {
+  // State variables for email, password, and current user
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
 
+  // Effect hook to handle user authentication state changes
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
     });
 
-    return unsubscribe;
+    return unsubscribe; // Cleanup function
   }, []);
 
+  // Function to sign in with email and password
   const signIn = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
@@ -31,6 +35,7 @@ export const Auth = () => {
     }
   };
 
+  // Function to sign in with Google
   const signInWithGoogle = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
@@ -40,15 +45,7 @@ export const Auth = () => {
     }
   };
 
-  const logOut = async () => {
-    try {
-      await signOut(auth);
-      console.log("Logged out");
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
+  // Function to sign up with email and password
   const signUp = async () => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
@@ -58,25 +55,24 @@ export const Auth = () => {
     }
   };
 
-  //Returns a div with inputs for username and password, a signIn button, a signInWithGoogle button, and a logOut button.
-  //Should probably remove the logOut button and instead display a log out button on the NavBar when users are signed in.
-  //Also, we need to add a button or link to create a new account.
+  // JSX for authentication form
   return (
     <div className="d-flex flex-column p-4 align-items-center">
       <input
         type="text"
         className="auth-input form-control"
         placeholder="Email..."
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e) => setEmail(e.target.value)} // Update email state on change
       />
       <input
         className="auth-input form-control"
         placeholder="Password..."
         type="password"
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={(e) => setPassword(e.target.value)} // Update password state on change
       />
       <br></br>
       <div className="log-buttons">
+        {/* Sign in button */}
         <button
           type="button"
           className="btn btn-outline-success signIn"
@@ -84,6 +80,7 @@ export const Auth = () => {
         >
           Sign In
         </button>
+        {/* Sign in with Google button */}
         <button
           type="button"
           className="btn btn-outline-primary signInGoogle"
@@ -91,6 +88,7 @@ export const Auth = () => {
         >
           Sign in with Google
         </button>
+        {/* Sign up button */}
         <button
           type="button"
           className="btn btn-outline-primary signUp"
@@ -100,6 +98,7 @@ export const Auth = () => {
         </button>
       </div>
       <br></br>
+      {/* Display current user's email if signed in */}
       <div>
         <p className="auth-status">Signed in as: {user?.email || "No one"} </p>
       </div>

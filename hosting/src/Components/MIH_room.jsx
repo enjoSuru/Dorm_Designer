@@ -19,6 +19,7 @@ import BasicTextFields from "../textbox/textbox";
 
 // Component for the Mignon Style Room
 export default function MIH_room() {
+  // State variables for draggable items and their properties
   const [draggables, setDraggables] = useState([]);
   const [widthValue, setWidthValue] = useState(50);
   const [heightValue, setHeightValue] = useState(50);
@@ -27,43 +28,52 @@ export default function MIH_room() {
   const [divText, setDivText] = useState("Drag me!");
   const { roomID } = useParams();
 
+  // Fetch draggable items and their properties from Firestore
+  // useEffect hook to fetch draggable items and their properties from Firestore
   useEffect(() => {
-    // Fetch draggable items and their properties from Firestore
+    // Check if a roomID is available
     if (roomID) {
+      // Set up a listener for changes in the positions collection of the current room
       const unsubscribe = onSnapshot(
         collection(db, "rooms", roomID, "positions"),
         (snapshot) => {
+          // Map the documents to an array of items with IDs and data
           const items = snapshot.docs.map((doc) => ({
             id: doc.id,
             ...doc.data(),
           }));
 
+          // Set up a listener for changes in the properties collection of the current room
           const unsubProps = onSnapshot(
             collection(db, "rooms", roomID, "properties"),
             (snapshot) => {
+              // Map the documents to an array of properties with IDs and data
               const properties = snapshot.docs.map((doc) => ({
                 id: doc.id,
                 ...doc.data(),
               }));
+              // Combine items and properties based on their IDs
               const combinedItems = items.map((item) => ({
                 ...item,
                 ...properties.find((prop) => prop.id === item.id),
               }));
+              // Update the state variable with the combined items
               setDraggables(combinedItems);
             }
           );
 
+          // Return cleanup function to unsubscribe from listeners
           return () => {
-            unsubProps();
-            unsubscribe();
+            unsubProps(); // Unsubscribe from properties listener
+            unsubscribe(); // Unsubscribe from positions listener
           };
         }
       );
 
-      return () => unsubscribe(); // Cleanup on unmount
+      // Return cleanup function to unsubscribe from positions listener
+      return () => unsubscribe();
     }
-  }, [roomID]);
-
+  }, [roomID]); // Run effect when roomID changes
 
   // Add a new draggable element to the room
   const addNewDraggable = () => {
@@ -79,7 +89,7 @@ export default function MIH_room() {
       text: divText,
     };
 
-    setDoc(newPosRef, { x: 0.25, y: 0.25 }); // Example starting position
+    setDoc(newPosRef, { x: 0.25, y: 0.25 });
     setDoc(newPropRef, newDraggable);
 
     setDraggables([...draggables, newDraggable]);
@@ -102,6 +112,7 @@ export default function MIH_room() {
       <h2>Mignon Style Room</h2>
       <div className="parent">
         <div className="left-component">
+          {/* Sliders and input fields for properties */}
           <p>Width</p>
           <SliderSizes value={widthValue} onChange={setWidthValue} />
           <p>Height</p>
@@ -112,7 +123,9 @@ export default function MIH_room() {
           <InputColorPicker value={selectedColor} onChange={setSelectedColor} />
           <p>Text</p>
           <BasicTextFields value={divText} onChange={handleTextChange} />
+          {/* Button to add new draggable */}
           <button onClick={addNewDraggable}>Add new draggable</button>
+          {/* Preview of the draggable element */}
           <div
             style={{
               margin: "10px",
@@ -130,6 +143,7 @@ export default function MIH_room() {
           </div>
         </div>
         <div className="div1">
+          {/* Render each draggable component */}
           {draggables.map((draggable) => (
             <DraggableComponent
               key={draggable.id}
@@ -141,9 +155,8 @@ export default function MIH_room() {
               initialText={draggable.text}
               initialRadius={draggable.radius}
               onDelete={handleDelete}
-            /> // Render each draggable component
+            />
           ))}
-          {divText}
         </div>
         <div className="div2"></div>
         <div className="div3"></div>

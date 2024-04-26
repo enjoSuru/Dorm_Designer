@@ -19,8 +19,7 @@ export default function NavBar() {
   }, []);
 
   return (
-    //Basic Navbar. Will need to add an icon later, make the login button switch to logout when signed in, and also
-    //make View Rooms invisible when not signed in.
+    // Navbar component that displays different links based on user authentication state
     <>
       <nav
         className="navbar navbar-expand-lg navbar-dark"

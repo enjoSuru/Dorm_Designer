@@ -1,20 +1,31 @@
 import { useState } from "react";
 
-function CopyToClip({value,display}) {
-
-
+// Component for copying text to clipboard
+function CopyToClip({ value, display }) {
+  // Function to stop event propagation
   const stopProp = (e) => {
     e.stopPropagation();
   };
 
-  const [copied, setCopied]=useState(false);
+  // State to track if text is copied
+  const [copied, setCopied] = useState(false);
 
-  return(
-    <button style={{marginRight:"0.5rem"}} onClick={async (e) =>
-    {stopProp(e); await navigator.clipboard.writeText(value), setCopied(true),   setTimeout(()=>{setCopied(false);},2000);}
-  }
-  >{copied ? "Copied" : display}</button>
+  return (
+    <button
+      style={{ marginRight: "0.5rem" }}
+      onClick={async (e) => {
+        stopProp(e); // Prevent event propagation
+        await navigator.clipboard.writeText(value); // Write text to clipboard
+        setCopied(true); // Set copied state to true
+        setTimeout(() => {
+          setCopied(false); // Reset copied state after 2 seconds
+        }, 2000);
+      }}
+    >
+      {/* Button text changes based on copied state */}
+      {copied ? "Copied" : display}
+    </button>
   );
 }
 
-export default CopyToClip;
+export default CopyToClip; // Exporting CopyToClip component

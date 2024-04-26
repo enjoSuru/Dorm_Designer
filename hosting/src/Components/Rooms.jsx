@@ -1,6 +1,14 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { collection, getDocs, getDoc, addDoc, deleteDoc, doc, setDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  getDoc,
+  addDoc,
+  deleteDoc,
+  doc,
+  setDoc,
+} from "firebase/firestore";
 import { db } from "../firebase-config.js";
 import "../comp_styling/Rooms.css";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -10,12 +18,11 @@ function Rooms() {
   const roomCollectionRef = collection(db, "rooms");
   const userCollectionRef = collection(db, "users");
   const navigate = useNavigate();
-  
+
   //Defined an auth variable and current user variable outside the onCreateRoom function to
   //use to only render the rooms the current user is a part of. We can put this in a try if needed.
   const outsideAuth = getAuth();
   const outUser = outsideAuth.currentUser;
-
 
   // State for our list of rooms when it's pulled from the database and filtered
   const [roomList, setRoomList] = useState([]);
@@ -55,10 +62,10 @@ function Rooms() {
           name: newRoomName,
           dorm: newRoomDorm,
           owner: user.uid,
-          numEditors:0,
-          editor1:"",
-          editor2:"",
-          editor3:"",
+          numEditors: 0,
+          editor1: "",
+          editor2: "",
+          editor3: "",
         });
         getRoomList();
       } else {
@@ -73,44 +80,54 @@ function Rooms() {
   // This function has to make sure the user isn't already part of the room, store them as an editor
   // and increment the numEditors variable to know which editor variable to edit + if the room is full.
   const joinRoom = async () => {
-      const roomRef = doc(db, "rooms", roomCode);
-      const rDoc = await getDoc(roomRef);
-      const roomData = { ...rDoc.data() };
-      const numEdit = roomData.numEditors;
-      if(outUser.uid==roomData.owner || outUser.uid==roomData.editor1 || 
-        outUser.uid==roomData.editor2 || outUser.uid==roomData.editor3){
-          console.log("User is already an editor or owner of this room.");
-          alert("User is already an editor or owner of this room.");
-          return;
-        }
-      if(numEdit < 3){
-          if(roomData.editor1 == ""){
-            await setDoc(doc(db, "rooms", roomCode),
-            {
-              numEditors:numEdit+1,
-              editor1: outUser.uid,
-            },{merge: true});
-          }
-          else if(roomData.editor2 == ""){
-            await setDoc(doc(db, "rooms", roomCode),
-            {
-              numEditors:numEdit+1,
-              editor2: outUser.uid,
-            },{merge: true});
-          }
-          else{
-            await setDoc(doc(db, "rooms", roomCode),
-            {
-              numEditors:numEdit+1,
-              editor3: outUser.uid,
-            },{merge: true});
-          }
-        getRoomList();
+    const roomRef = doc(db, "rooms", roomCode);
+    const rDoc = await getDoc(roomRef);
+    const roomData = { ...rDoc.data() };
+    const numEdit = roomData.numEditors;
+    if (
+      outUser.uid == roomData.owner ||
+      outUser.uid == roomData.editor1 ||
+      outUser.uid == roomData.editor2 ||
+      outUser.uid == roomData.editor3
+    ) {
+      console.log("User is already an editor or owner of this room.");
+      alert("User is already an editor or owner of this room.");
+      return;
+    }
+    if (numEdit < 3) {
+      if (roomData.editor1 == "") {
+        await setDoc(
+          doc(db, "rooms", roomCode),
+          {
+            numEditors: numEdit + 1,
+            editor1: outUser.uid,
+          },
+          { merge: true }
+        );
+      } else if (roomData.editor2 == "") {
+        await setDoc(
+          doc(db, "rooms", roomCode),
+          {
+            numEditors: numEdit + 1,
+            editor2: outUser.uid,
+          },
+          { merge: true }
+        );
+      } else {
+        await setDoc(
+          doc(db, "rooms", roomCode),
+          {
+            numEditors: numEdit + 1,
+            editor3: outUser.uid,
+          },
+          { merge: true }
+        );
       }
-      else{
-        alert("This room already has the maximum number of editors.");
-      }
-  }
+      getRoomList();
+    } else {
+      alert("This room already has the maximum number of editors.");
+    }
+  };
 
   // Function for someone to remove themselves as an editor of the room when the "remove" button is clicked
   const removeRoom = async (roomId) => {
@@ -118,29 +135,38 @@ function Rooms() {
     const rDoc = await getDoc(roomRef);
     const roomData = { ...rDoc.data() };
     const numEdit = roomData.numEditors;
-    if(roomData.editor1 == outUser.uid){
-      await setDoc(doc(db, "rooms", roomCode),
-          {
-            numEditors:numEdit-1,
-            editor1: "",
-          },{merge: true});
+    if (roomData.editor1 == outUser.uid) {
+      await setDoc(
+        doc(db, "rooms", roomCode),
+        {
+          numEditors: numEdit - 1,
+          editor1: "",
+        },
+        { merge: true }
+      );
     }
-    if(roomData.editor2 == outUser.uid){
-      await setDoc(doc(db, "rooms", roomCode),
-          {
-            numEditors:numEdit-1,
-            editor2: "",
-          },{merge: true});
+    if (roomData.editor2 == outUser.uid) {
+      await setDoc(
+        doc(db, "rooms", roomCode),
+        {
+          numEditors: numEdit - 1,
+          editor2: "",
+        },
+        { merge: true }
+      );
     }
-    if(roomData.editor3 == outUser.uid){
-      await setDoc(doc(db, "rooms", roomCode),
-          {
-            numEditors:numEdit-1,
-            editor3: "",
-          },{merge: true});
+    if (roomData.editor3 == outUser.uid) {
+      await setDoc(
+        doc(db, "rooms", roomCode),
+        {
+          numEditors: numEdit - 1,
+          editor3: "",
+        },
+        { merge: true }
+      );
     }
     getRoomList();
-  }
+  };
 
   const deleteRoom = async (roomId) => {
     const roomDoc = doc(db, "rooms", roomId);
@@ -161,7 +187,6 @@ function Rooms() {
     <>
       <br></br>
       <div className="d-flex justify-content-center">
-
         <div className="">
           <h1 style={{ fontSize: "2rem" }}>Create a Room</h1>
           <input
@@ -182,13 +207,20 @@ function Rooms() {
             <option value="CMH">Cartmell/Alumni</option>
             <option value="ELA">Eagle Lake Apartments</option>
           </select>
-          <button className="create-room-btn" onClick={onCreateRoom}>Create Room</button>
+          <button className="create-room-btn" onClick={onCreateRoom}>
+            Create Room
+          </button>
         </div>
 
         <div className="join-room-div">
-          <h1 style={{fontSize:"2rem"}}>Join a Room</h1>
-          <input placeholder="Room Code..." onChange={(e)=>setRoomCode(e.target.value)}/>
-          <button className="join-room-btn" onClick={joinRoom}>Join</button>
+          <h1 style={{ fontSize: "2rem" }}>Join a Room</h1>
+          <input
+            placeholder="Room Code..."
+            onChange={(e) => setRoomCode(e.target.value)}
+          />
+          <button className="join-room-btn" onClick={joinRoom}>
+            Join
+          </button>
         </div>
       </div>
 
@@ -196,38 +228,47 @@ function Rooms() {
         <header style={{ fontSize: "large", padding: "30px" }}>
           Current Rooms:
         </header>
-        {roomList.map((room=> (room.owner == outUser.uid || room.editor1 == outUser.uid || room.editor2 == outUser.uid 
-        || room.editor3 == outUser.uid) ? <div
-            className="roomDivs"
-            key={room.id}
-            onClick={() => onRoomClick(room.id)}
+        {roomList.map((room) =>
+          room.owner == outUser.uid ||
+          room.editor1 == outUser.uid ||
+          room.editor2 == outUser.uid ||
+          room.editor3 == outUser.uid ? (
+            <div
+              className="roomDivs"
+              key={room.id}
+              onClick={() => onRoomClick(room.id)}
             >
-            <p style={{ fontSize: "medium" }}>
-              {room.dorm} Dorm Room: '{room.name}' <br></br>Room Owner:{" "}
-              {room.owner}
-            </p>
-            <div className="d-flex flex-row justify-content-between">
-            {room.owner == outUser.uid ?             
-              <button
-                onClick={(e) => {
-                  stopProp(e);
-                  deleteRoom(room.id);} }
-              >
-                Delete X
-              </button>
-            :
-              <button onClick={(e) => {{
-                stopProp(e);
-                removeRoom(room.id);}}}
-                >Remove</button>
-            }
-            <CopyToClip 
-            value={room.id}
-            display="Copy Code" />
+              <p style={{ fontSize: "medium" }}>
+                {room.dorm} Dorm Room: '{room.name}' <br></br>Room Owner:{" "}
+                {room.owner}
+              </p>
+              <div className="d-flex flex-row justify-content-between">
+                {room.owner == outUser.uid ? (
+                  <button
+                    onClick={(e) => {
+                      stopProp(e);
+                      deleteRoom(room.id);
+                    }}
+                  >
+                    Delete X
+                  </button>
+                ) : (
+                  <button
+                    onClick={(e) => {
+                      {
+                        stopProp(e);
+                        removeRoom(room.id);
+                      }
+                    }}
+                  >
+                    Remove
+                  </button>
+                )}
+                <CopyToClip value={room.id} display="Copy Code" />
+              </div>
             </div>
-          </div>:
-          null
-        ))}
+          ) : null
+        )}
       </div>
     </>
   );
