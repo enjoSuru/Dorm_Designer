@@ -17,7 +17,7 @@ function App() {
             </strong>
           </h2>
         </div>
-        <div className="align-self-start">
+        <div>
           <div className="intro-paragraph">
             <p className="text-primary">
               <strong>
